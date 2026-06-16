@@ -1,0 +1,109 @@
+This is because almost every Business Rule, Script Include, Scheduled Job, and Background Script uses the gs object.
+GlideSystem (gs)
+gs stands for GlideSystem.
+It provides utility methods for:
+•	Logging 
+•	Messages 
+•	User information 
+•	Dates and times 
+•	Roles 
+•	Properties 
+•	Events 
+________________________________________
+1. gs.info()
+Prints information to the system logs.
+gs.info("Hello ServiceNow");
+Output:
+Hello ServiceNow
+Used for debugging.
+________________________________________
+2. gs.error()
+Logs error messages.
+gs.error("Something went wrong");
+Output:
+Something went wrong
+________________________________________
+3. gs.warn()
+Logs warning messages.
+gs.warn("Check this record");
+________________________________________
+4. gs.print()
+Mostly used in Background Scripts.
+gs.print("Testing");
+________________________________________
+5. gs.addInfoMessage()
+Displays a message to the user.
+gs.addInfoMessage("Incident created successfully");
+Output:
+•	Message appears at the top of the form. 
+________________________________________
+6. gs.addErrorMessage()
+Shows an error message.
+gs.addErrorMessage("Access Denied");
+________________________________________
+7. Get Logged-in User
+Username
+gs.getUserName();
+Example:
+gs.info(gs.getUserName());
+Output:
+admin
+________________________________________
+User ID (Sys ID)
+gs.getUserID();
+________________________________________
+8. Get User Object
+var user = gs.getUser();
+Example:
+var user = gs.getUser();
+
+gs.info(user.getFirstName());
+________________________________________
+9. Check Roles
+gs.hasRole('admin');
+Example:
+if(gs.hasRole('admin')){
+   gs.info("Admin User");
+}
+________________________________________
+10. Get Current Date & Time
+gs.nowDateTime();
+Output:
+2026-06-16 10:30:00
+________________________________________
+11. Generate Unique Sys ID
+gs.generateGUID();
+Used when creating unique identifiers.
+________________________________________
+12. Get System Property
+gs.getProperty('instance_name');
+Example:
+var instance = gs.getProperty('instance_name');
+
+gs.info(instance);
+________________________________________
+13. Event Queue
+Used for notifications and events.
+gs.eventQueue(
+    'incident.created',
+    current,
+    current.number,
+    current.opened_by
+);
+You'll use this later in advanced development.
+________________________________________
+Most Important gs Methods
+Method	Purpose
+gs.info()	Log information
+gs.error()	Log errors
+gs.warn()	Log warnings
+gs.print()	Print output
+gs.addInfoMessage()	Success message
+gs.addErrorMessage()	Error message
+gs.getUserName()	Current username
+gs.getUserID()	Current user sys_id
+gs.getUser()	User object
+gs.hasRole()	Check roles
+gs.nowDateTime()	Current date & time
+gs.getProperty()	Read system property
+gs.eventQueue()	Trigger events
