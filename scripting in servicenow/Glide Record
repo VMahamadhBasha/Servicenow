@@ -1,0 +1,184 @@
+What is GlideRecord?
+GlideRecord is the most important ServiceNow server-side API used to interact with database tables.
+Think of it as a bridge between your script and the ServiceNow database.
+With GlideRecord, you can:
+•	Read records 
+•	Create records 
+•	Update records 
+•	Delete records 
+•	Filter records 
+•	Count records 
+Almost every ServiceNow developer uses GlideRecord daily.
+1. Reading Records
+Retrieve all incidents.
+var gr = new GlideRecord('incident');
+
+gr.query();
+
+while(gr.next()){
+    gs.info(gr.number);
+}
+Output:
+INC0010001
+INC0010002
+INC0010003
+________________________________________
+2. addQuery()
+Used to filter records.
+Example:
+Get Priority 1 incidents.
+var gr = new GlideRecord('incident');
+
+gr.addQuery('priority',1);
+
+gr.query();
+
+while(gr.next()){
+    gs.info(gr.number);
+}
+SQL equivalent:
+SELECT * FROM incident
+WHERE priority = 1
+________________________________________
+3. Multiple Conditions
+var gr = new GlideRecord('incident');
+
+gr.addQuery('priority',1);
+gr.addQuery('active',true);
+
+gr.query();
+Equivalent:
+WHERE priority = 1
+AND active = true
+________________________________________
+4. get()
+Used to retrieve one specific record.
+Using Sys ID:
+var gr = new GlideRecord('incident');
+
+if(gr.get('46d44e...')){
+    gs.info(gr.number);
+}
+Using a field:
+var gr = new GlideRecord('incident');
+
+if(gr.get('number','INC0010001')){
+    gs.info(gr.short_description);
+}
+________________________________________
+5. Creating Records
+insert()
+var gr = new GlideRecord('incident');
+
+gr.initialize();
+
+gr.short_description = "VPN Issue";
+gr.priority = 2;
+
+gr.insert();
+What happens?
+1.	New record created 
+2.	Values assigned 
+3.	Record saved 
+________________________________________
+6. Updating Records
+update()
+var gr = new GlideRecord('incident');
+
+if(gr.get('number','INC0010001')){
+
+    gr.priority = 1;
+
+    gr.update();
+}
+Before:
+Priority = 3
+After:
+Priority = 1
+________________________________________
+7. Deleting Records
+deleteRecord()
+var gr = new GlideRecord('incident');
+
+if(gr.get('number','INC0010001')){
+
+    gr.deleteRecord();
+}
+Record removed from table.
+________________________________________
+8. orderBy()
+Ascending order.
+var gr = new GlideRecord('incident');
+
+gr.orderBy('priority');
+
+gr.query();
+Result:
+1
+2
+3
+4
+5
+________________________________________
+9. orderByDesc()
+Descending order.
+gr.orderByDesc('priority');
+Result:
+5
+4
+3
+2
+1
+________________________________________
+10. setLimit()
+Retrieve limited records.
+var gr = new GlideRecord('incident');
+
+gr.setLimit(5);
+
+gr.query();
+Only 5 records returned.
+________________________________________
+11. addEncodedQuery()
+Copy filters directly from list view.
+Example:
+gr.addEncodedQuery(
+'priority=1^active=true'
+);
+Equivalent:
+gr.addQuery('priority',1);
+gr.addQuery('active',true);
+This is heavily used in real projects.
+________________________________________
+12. Counting Records
+Using GlideAggregate (recommended)
+var ga = new GlideAggregate('incident');
+
+ga.addAggregate('COUNT');
+
+ga.query();
+
+if(ga.next()){
+
+   gs.info(
+      ga.getAggregate('COUNT')
+   );
+}
+Output:
+250
+________________________________________
+Most Common GlideRecord Methods
+Method	Purpose
+new GlideRecord()	Connect table
+addQuery()	Add condition
+addEncodedQuery()	Multiple conditions
+query()	Execute query
+next()	Move to next record
+get()	Get single record
+initialize()	Create record
+insert()	Save new record
+update()	Update record
+deleteRecord()	Delete record
+orderBy()	Ascending sort
+orderByDesc()	Descending sort
+setLimit()	Limit results
