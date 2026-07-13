@@ -1,0 +1,144 @@
+ServiceNow Table API CRUD Operations Using Postman
+
+Learn how to perform Create, Read, Update, and Delete (CRUD) operations on a custom ServiceNow table using the Table API and Postman.
+
+📌 Project Overview
+
+This project demonstrates how external applications interact with ServiceNow through REST APIs. Using Postman, I performed complete CRUD operations on a custom table (u_test1) by sending HTTP requests and handling JSON responses.
+
+✨ Features
+Retrieve all records
+Retrieve a specific record
+Create a new record
+Update an existing record
+Delete a record
+Basic Authentication
+JSON Request & Response
+HTTP Status Codes
+🛠 Tech Stack
+Technology	Purpose
+ServiceNow	Backend Platform
+Postman	API Testing
+REST API	Communication
+JSON	Data Exchange
+Basic Auth	Authentication
+📂 Project Structure
+ServiceNow
+        │
+        ▼
+ Custom Table (u_test1)
+        │
+        ▼
+   Table REST API
+        │
+        ▼
+     Postman
+🌐 REST API Endpoint
+GET https://dev343926.service-now.com/api/now/table/u_test1
+🔑 Authentication
+Type : Basic Authentication
+
+Username : admin
+
+Password : ********
+📖 CRUD Operations
+📥 1. GET All Records
+
+Retrieves every record from the custom table.
+
+Endpoint
+GET /api/now/table/u_test1
+Status
+200 OK
+Screenshot
+<p align="center"> <img src="images/get-all.png" width="900"> </p>
+🔍 2. GET Single Record
+
+Retrieves one record using its sys_id.
+
+Endpoint
+GET /api/now/table/u_test1/{sys_id}
+Status
+200 OK
+Screenshot
+<p align="center"> <img src="images/get-single.png" width="900"> </p>
+✏️ 3. UPDATE Record
+
+Updates an existing record.
+
+Endpoint
+PUT /api/now/table/u_test1/{sys_id}
+Request Body
+{
+    "u_address":"chowdur"
+}
+Status
+200 OK
+Screenshot
+<p align="center"> <img src="images/update.png" width="900"> </p>
+➕ 4. CREATE Record
+
+Creates a new record.
+
+Endpoint
+POST /api/now/table/u_test1
+Request Body
+{
+    "u_name":"Madhu",
+    "u_number":"PRA1021",
+    "u_address":"Ananthapur"
+}
+Status
+201 Created
+Screenshot
+<p align="center"> <img src="images/create.png" width="900"> </p>
+❌ 5. DELETE Record
+
+Deletes a record.
+
+Endpoint
+DELETE /api/now/table/u_test1/{sys_id}
+Status
+204 No Content
+Screenshot
+<p align="center"> <img src="images/delete.png" width="900"> </p>
+📊 HTTP Methods Used
+Method	Description
+GET	Retrieve Records
+POST	Create Record
+PUT	Update Record
+DELETE	Delete Record
+📡 HTTP Status Codes
+Code	Meaning
+200	Success
+201	Created
+204	Deleted Successfully
+400	Bad Request
+401	Unauthorized
+404	Not Found
+🎯 What I Learned
+Understanding ServiceNow Table API
+REST API Fundamentals
+CRUD Operations
+HTTP Methods
+JSON Request & Response
+Basic Authentication
+Working with sys_id
+API Testing using Postman
+Reading API Responses
+HTTP Status Codes
+📸 Project Demo
+Operation	Screenshot
+GET All	✅
+GET Single	✅
+PUT	✅
+POST	✅
+DELETE	✅
+🚀 Future Enhancements
+OAuth Authentication
+Scripted REST APIs
+IntegrationHub
+Flow Designer Integration
+Error Handling
+Pagination
+Filtering & Query Parameters
